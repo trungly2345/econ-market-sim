@@ -2,17 +2,23 @@ package com.example;
 
 public class Main {
    public static void main(String[] args) {
-        Market market1 = new Market("coffee", 120, 80, 5.00);
-        System.out.println("Market: " +market1.getGood());
-        System.out.println("Price: " +market1.getPrice());
-        System.out.println("Quantity Supplied: " +market1.getQuantitysupplied());
-        System.out.println("Quantity Demanded: " +market1.getQuantitydemanded());
-        System.out.println("Status: " + market1.getStatus());
 
-      
-        
+      Demand employerDemand = new Demand(108.4, 0.4);
+      Supply candidateSupply = new Supply(83, 0.2);
+
+      Market juniorSweMarket = new Market("US Entry-Level Software Developers",85, employerDemand,candidateSupply);
+
+      System.out.println(juniorSweMarket.getStatus());
+      // System.out.println(juniorSweMarket.findEquilibrium());
+
+      EquilibriumResult result = juniorSweMarket.findEquilibrium();
+
+      if (result != null) {
+         System.out.printf("Equilibrium Price: %.2f%n", result.getEquilibriumPrice());
+         System.out.printf("Quantity Demanded: %.2f%n",result.getEquilibriumQD());
+         System.out.printf("Quantity Supplied: %.2f%n",result.getEquilibriumQS());
+      }
+
    }
 
-
-   
 }

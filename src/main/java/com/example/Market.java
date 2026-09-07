@@ -3,11 +3,23 @@ package com.example;
 public class Market{
 
     private String good; 
-    private int quantityDemanded;
-    private int quantitySupplied; 
     private double price; 
+    private Demand demand;
+    private Supply supply; 
+    private EquilibriumResult equilibriumResult;
 
 
+    
+    
+    
+    public Market(String good, double price, Demand demand, Supply supply) {
+        this.good = good; 
+        this.demand = demand;
+        this.supply = supply;
+        this.price = price;
+    }
+    
+    
     public String getGood() {
         return good;
     }
@@ -16,21 +28,6 @@ public class Market{
         this.good = good;
     }
 
-    public int getQuantitydemanded() {
-        return quantityDemanded;
-    }
-
-    public void setQuantitydemanded(int quantityDemanded) {
-        this.quantityDemanded = quantityDemanded;
-    }
-
-    public int getQuantitysupplied() {
-        return quantitySupplied;
-    }
-
-    public void setQuantity_supplied(int quantitySupplied) {
-        this.quantitySupplied = quantitySupplied;
-    }
 
     public double getPrice() {
         return price;
@@ -40,27 +37,54 @@ public class Market{
         this.price = price;
     }
 
-    private int getMarketImbalance(){
-        return quantityDemanded - quantitySupplied;
+    public double getQuantityDemanded(){
+        return demand.calculateQuantityDemanded(price);
     }
 
-    public Market(String good, int quantityDemanded, int quantitySupplied, double price) {
-        this.good = good; 
-        this.quantityDemanded = quantityDemanded;
-        this.quantitySupplied = quantitySupplied;
-        this.price = price;
+    public double getQuantitySupplied(){
+        return supply.calculatedQuantitySupplied(price);
     }
 
+    public double getMarketImbalance(){
+        return getQuantityDemanded() - getQuantitySupplied();
+    }
+
+    
     public String getStatus(){
-        if (getMarketImbalance() > 0){
+        double tolerance = 0.1;
+        if (getMarketImbalance() > tolerance){
             return "Shortage";
-        }else if (getMarketImbalance() < 0){
+        }else if (getMarketImbalance() < -tolerance){
             return "Surplus";
         }else {
             return "Equilibrium";
         }
         
         }
+
+
+    public EquilibriumResult findEquilibrium(){
+      
+        double priceStart = 0;
+
+        double maxPrice = demand.getDemandIntercept()/demand.getSlope();
+
+        while (priceStart < maxPrice){
+        
+         setPrice(priceStart);
+        double qd = getQuantityDemanded();
+        double qs = getQuantitySupplied();
+        double difference = Math.abs(qd - qs);
+
+        if (difference < .1){
+          return new EquilibriumResult(priceStart, qd, qs);
+        }
+        priceStart += .01;
+    }
+        // NOTE: Change later to Optional<EquilibriumResult> 
+       return null;
+        
+    }
 
 
 
