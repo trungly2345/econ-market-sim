@@ -36,7 +36,6 @@ public class Demand {
         this.slope = slope;
     }
 
-
   
 
     public double calculateQuantityDemanded(double price) {

@@ -7,10 +7,6 @@ public class Market{
     private Demand demand;
     private Supply supply; 
     private EquilibriumResult equilibriumResult;
-
-
-    
-    
     
     public Market(String good, double price, Demand demand, Supply supply) {
         this.good = good; 
@@ -65,25 +61,64 @@ public class Market{
 
     public EquilibriumResult findEquilibrium(){
       
-        double priceStart = 0;
+       
+        double low = 0;
+        int iterations = 0;
+        int max_iterations = 100;
 
-        double maxPrice = demand.getDemandIntercept()/demand.getSlope();
-
-        while (priceStart < maxPrice){
+        double high = demand.getDemandIntercept()/demand.getSlope();
         
-         setPrice(priceStart);
+
+        while (iterations < max_iterations){
+        
+        double mid = (low + high) / 2;
+
+        setPrice(mid);
+
         double qd = getQuantityDemanded();
         double qs = getQuantitySupplied();
         double difference = Math.abs(qd - qs);
 
-        if (difference < .1){
-          return new EquilibriumResult(priceStart, qd, qs);
+         if (difference < .1){
+           return new EquilibriumResult(mid, qd, qs);
+         }
+
+        if (qd > qs){
+          low = mid;
+        } else {
+            high = mid;
         }
-        priceStart += .01;
+        iterations++;
     }
         // NOTE: Change later to Optional<EquilibriumResult> 
-       return null;
+        return null;
+
+    }
+
+     public EquilibriumResult findEquilibriumBruteForce(){
+      
+        double startPrice = 0;
+        double maxPrice = demand.getDemandIntercept()/demand.getSlope();
         
+
+
+        while (startPrice < maxPrice){
+
+        setPrice(startPrice);
+        double qd = getQuantityDemanded();
+        double qs = getQuantitySupplied();
+        double difference = Math.abs(qd - qs);
+
+         if (difference < .1){
+           return new EquilibriumResult(startPrice, qd, qs);
+         }
+
+         startPrice += 0.01;
+
+    }
+        // NOTE: Change later to Optional<EquilibriumResult> 
+        return null;
+
     }
 
 
