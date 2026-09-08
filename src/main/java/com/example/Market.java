@@ -7,7 +7,7 @@ public class Market{
     private Demand demand;
     private Supply supply; 
     private EquilibriumResult equilibriumResult;
-    
+        
     public Market(String good, double price, Demand demand, Supply supply) {
         this.good = good; 
         this.demand = demand;
