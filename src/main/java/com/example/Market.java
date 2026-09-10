@@ -60,7 +60,6 @@ public class Market{
 
 
     public EquilibriumResult findEquilibrium(){
-      
        
         double low = 0;
         int iterations = 0;
@@ -100,7 +99,6 @@ public class Market{
         double startPrice = 0;
         double maxPrice = demand.getDemandIntercept()/demand.getSlope();
         
-
 
         while (startPrice < maxPrice){
 

@@ -4,7 +4,11 @@ public class Demand {
     private double price;
     private double demandIntercept; 
     private double slope;
-
+    
+    public Demand(double demandIntercept, double slope){
+        this.demandIntercept = demandIntercept;
+        this.slope = slope;
+    }
 
     public double getPrice() {
         return price;
@@ -31,12 +35,6 @@ public class Demand {
         this.slope = slope;
     }
 
-    public Demand(double demandIntercept, double slope){
-        this.demandIntercept = demandIntercept;
-        this.slope = slope;
-    }
-
-  
 
     public double calculateQuantityDemanded(double price) {
         double result = demandIntercept -  (slope * price);
