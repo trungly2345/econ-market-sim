@@ -1,10 +1,13 @@
 package com.example;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+
 public class SupplyTest {
+
     @Test
     void testQuantitySupply() {
         System.out.println("Calculate Quantity Supplied Test");
@@ -32,7 +35,7 @@ public class SupplyTest {
 
         double after = supply.calculatedQuantitySupplied(supply.getPrice());
 
-        System.out.println("QtySupplied at price: " + supply.getPrice() + " is: " + after + "\n");
+        System.out.println("Qty Supplied at price: " + supply.getPrice() + " is: " + after + "\n");
 
         assertTrue(before < after);
     }
@@ -46,50 +49,66 @@ public class SupplyTest {
 
         double before = supply.calculatedQuantitySupplied(supply.getPrice());
 
-        System.out.println("QtySupplied at price: " + supply.getPrice() + " is: " + before);
+        System.out.println("Qty Supplied at price: " + supply.getPrice() + " is: " + before);
 
         supply.setPrice(5);
 
         double after = supply.calculatedQuantitySupplied(supply.getPrice());
 
-        System.out.println("QtySupplied at price: " + supply.getPrice() + " is: " + after + "\n");
+        System.out.println("Qty Supplied at price: " + supply.getPrice() + " is: " + after + "\n");
 
         assertTrue(before > after);
     }
 
     @Test
-    void testQuantityDemandedAtChokePrice() {
-        System.out.println("Test Quantity Demanded At Choke Price");
+    void testQuantitySupplyAtChokePrice() {
+        System.out.println("Test Quantity Supplied At Choke Price");
 
-        Demand d = new Demand(1000, 10);
+        Supply supply = new Supply(-200, 200);
 
         double expected = 0.00;
 
-        double actual = d.calculateQuantityDemanded(100);
+        double actual = supply.calculatedQuantitySupplied(1);
+        
+        System.out.println("Quantity supplied at price: " + supply.getPrice() + " is: " + "Qs=" + actual + " Expected: " + expected + "\n");
 
         assertEquals(expected, actual, 0.001);
 
-        System.out.println("Quantity Demanded at choke price: " + actual + " Expected: " + expected + "\n");
 
     }
 
     @Test
-    void testQuantityDemandedAboveChokePrice() {
-        System.out.println("Test Quantity Demanded Above Choke Price");
+    void testQuantitySupplyBelowChokePrice() {
+        System.out.println("Test Quantity Supplied Below Choke Price");
 
-        Demand d = new Demand(1000, 10);
+        Supply supply = new Supply(-200, 200);
 
         double expected = 0.00;
 
-        d.setPrice(150);
+        supply.setPrice(0.5);
 
-        double actual = d.calculateQuantityDemanded(d.getPrice());
-
-        assertEquals(expected, actual, 0.001);
+        double actual = supply.calculatedQuantitySupplied(supply.getPrice());
 
         System.out.println(
-                "Quantity Demand At Price: " + d.getPrice() + " is: " + actual + " Expected: " + expected + "\n");
+                "Quantity supplied at price: " + supply.getPrice() + " is: " + "Qs=" + actual + " Expected: " + expected + "\n");
+        
+        assertEquals(expected, actual, 0.001);
+     
+    }
 
+    @Test 
+    void testNegativeSlopeAsZero(){
+        System.out.println("Test Negative Slope");
+
+        Supply supply = new Supply(-200, 200);
+
+
+        double actual = supply.calculatedQuantitySupplied(0.5);
+
+        assertEquals(0, actual, 0.001);
+
+        System.out.println("Quantity supplied at price: " + 0.5 + " is: " + actual + " Expected: " + 0 + "\n");
+        
     }
 
 }

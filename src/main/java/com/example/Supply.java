@@ -37,7 +37,8 @@ public class Supply {
 
     public double calculatedQuantitySupplied(double price){
         double result = baseIntercept  + (slope*price);
-        return result;
+
+        return Math.max(0, result);
     }
 
     
