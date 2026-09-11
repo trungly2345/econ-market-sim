@@ -1,5 +1,7 @@
 package com.example;
 
+import java.util.Optional;
+
 public class Market{
 
     private String good; 
@@ -59,7 +61,7 @@ public class Market{
         }
 
 
-    public EquilibriumResult findEquilibrium(){
+    public Optional<EquilibriumResult> findEquilibrium() {
        
         double low = 0;
         int iterations = 0;
@@ -79,7 +81,7 @@ public class Market{
         double difference = Math.abs(qd - qs);
 
          if (difference < .1){
-           return new EquilibriumResult(mid, qd, qs);
+           return Optional.of(new EquilibriumResult(mid, qd, qs));
          }
 
         if (qd > qs){
@@ -90,7 +92,7 @@ public class Market{
         iterations++;
     }
         // NOTE: Change later to Optional<EquilibriumResult> 
-        return null;
+        return Optional.empty();
 
     }
 

@@ -2,6 +2,8 @@ package com.example;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 public class MarketTest {
@@ -52,16 +54,16 @@ public class MarketTest {
 
         double expected = 53.33;
         Long start = System.nanoTime();
-        EquilibriumResult actual = m.findEquilibrium();
+        Optional<EquilibriumResult> actual = m.findEquilibrium();
         Long end = System.nanoTime();
 
         Long time = end - start;
 
         assertNotNull(actual);
-        assertEquals(expected, actual.getEquilibriumPrice(), 0.01);
-        System.out.println("Equilibrium Price: " + actual.getEquilibriumPrice());
-        System.out.println("Equilibrium Quantity: " + actual.getEquilibriumQD());
-        System.out.println("Equilibrium Quantity: " + actual.getEquilibriumQS());
+        assertEquals(expected, actual.get().getEquilibriumPrice(), 0.01);
+        System.out.println("Equilibrium Price: " + actual.get().getEquilibriumPrice());
+        System.out.println("Equilibrium Quantity: " + actual.get().getEquilibriumQD());
+        System.out.println("Equilibrium Quantity: " + actual.get().getEquilibriumQS());
         System.out.println("Time elapsed: " + time + " ns");
 
 
@@ -75,15 +77,15 @@ public class MarketTest {
 
         Market m = new Market("Test Goods", 10, d, s);
 
-        EquilibriumResult actual = m.findEquilibrium();
+        Optional<EquilibriumResult> actual = m.findEquilibrium();
 
         assertNotNull(actual);
         double tolerance = 0.1;
 
-        double difference = Math.abs(actual.getEquilibriumQD() - actual.getEquilibriumQS());
+        double difference = Math.abs(actual.get().getEquilibriumQD() - actual.get().getEquilibriumQS());
 
-        System.out.println("Equilibrium Quantity Demanded: " + actual.getEquilibriumQD());
-        System.out.println("Equilibrium Quantity Supplied: " + actual.getEquilibriumQS());
+        System.out.println("Equilibrium Quantity Demanded: " + actual.get().getEquilibriumQD());
+        System.out.println("Equilibrium Quantity Supplied: " + actual.get().getEquilibriumQS());
         System.out.println("Difference: " + difference + " within tolerance 0.01\n");
         assertTrue(difference < tolerance);
 
@@ -144,6 +146,29 @@ public class MarketTest {
           assertEquals(expected, actual);
           assertEquals(expected1, actual1);
           assertEquals(expected2, actual2);
+
+    }
+
+
+
+    @Test 
+
+    void testNoEquilibrium(){
+
+        System.out.println("No equilibrium found test\n");
+
+        Demand d = new Demand(100,10);
+        Supply s = new Supply(500 ,5);
+        
+        
+        Market m = new Market("Test Goods", 10, d, s);
+        
+
+       Optional<EquilibriumResult> actual = m.findEquilibrium();
+
+       assertTrue(actual.isEmpty());
+
+       System.out.println("Equilibrium not found at price " + m.getPrice() + "\n");
 
     }
 
