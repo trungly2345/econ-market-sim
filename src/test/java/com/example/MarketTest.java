@@ -14,8 +14,8 @@ public class MarketTest {
     void findEquilibrium(){
 
       
-        Demand d = new Demand(1000,10);
-        Supply s = new Supply(200 ,5);
+        LinearDemand d = new LinearDemand(1000,10);
+        LinearSupply s = new LinearSupply(200 ,5);
         
         
         Market m = new Market("Test Goods", 10, d, s);
@@ -47,12 +47,12 @@ public class MarketTest {
     void findEquilibriumBisectionTest(){
 
         System.out.println("\nFinding Market Equilibirum Bisection Test");
-        Demand d = new Demand(1000,10);
-        Supply s = new Supply(200,5);
+        LinearDemand d = new LinearDemand(20000,3000);
+        LinearSupply s = new LinearSupply(0,2000);
 
-        Market m = new Market("Test Goods", 10, d, s);
+        Market m = new Market("Test Goods", 4, d, s);
 
-        double expected = 53.33;
+        double expected = 4;
         Long start = System.nanoTime();
         Optional<EquilibriumResult> actual = m.findEquilibrium();
         Long end = System.nanoTime();
@@ -72,8 +72,8 @@ public class MarketTest {
     @Test 
     void testWtihinTolerelance(){
         System.out.println("\nTest Quanitites within Tolerance ");
-        Demand d = new Demand(1000,10);
-        Supply s = new Supply(200,5);
+        LinearDemand d = new LinearDemand(1000,10);
+        LinearSupply s = new LinearSupply(200,5);
 
         Market m = new Market("Test Goods", 10, d, s);
 
@@ -97,8 +97,8 @@ public class MarketTest {
     void TestMarketStatus(){
 
          System.out.println("Test Market Status ");
-          Demand d = new Demand(1000,10);
-          Supply s = new Supply(200,5);
+          LinearDemand d = new LinearDemand(1000,10);
+          LinearSupply s = new LinearSupply(200,5);
 
           Market m = new Market("Test Good", 10,d,s);
 
@@ -157,8 +157,8 @@ public class MarketTest {
 
         System.out.println("No equilibrium found test\n");
 
-        Demand d = new Demand(100,10);
-        Supply s = new Supply(500 ,5);
+        LinearDemand d = new LinearDemand(100,10);
+        LinearSupply s = new LinearSupply(500 ,5);
         
         
         Market m = new Market("Test Goods", 10, d, s);

@@ -11,10 +11,14 @@ public class SupplyTest {
     @Test
     void testQuantitySupply() {
         System.out.println("Calculate Quantity Supplied Test");
-        Supply supply = new Supply(1000, 10);
+    
+
+        
+        SupplyModel supplyModel = new LinearSupply(1000, 10);
 
         double expected = 1100;
-        double actual = supply.calculatedQuantitySupplied(10);
+        double actual = supplyModel.calculateQuantitySupplied(10);
+
 
         assertEquals(expected, actual);
         System.out.println("Quantity Supplied " + actual + " Expected: " + expected + "\n");
@@ -23,19 +27,20 @@ public class SupplyTest {
     @Test
     void testQuantitySuppliedIncreaseWhenPriceIncrease() {
         System.out.println("Law of Supply Test 1");
-        Supply supply = new Supply(1000, 10);
+        LinearSupply linearSupply = new LinearSupply(1000, 10);
+        Market market = new Market("Test good", 5, null, linearSupply);
 
-        supply.setPrice(0);
+       
 
-        double before = supply.calculatedQuantitySupplied(supply.getPrice());
+        double before = linearSupply.calculateQuantitySupplied(market.getPrice());
 
-        System.out.println("Qty Supplied at price: " + supply.getPrice() + " is: " + before);
+        System.out.println("Qty Supplied at price: " +  market.getPrice() + " is: " + before);
 
-        supply.setPrice(4);
+        market.setPrice(10);
 
-        double after = supply.calculatedQuantitySupplied(supply.getPrice());
+        double after = linearSupply.calculateQuantitySupplied(market.getPrice());
 
-        System.out.println("Qty Supplied at price: " + supply.getPrice() + " is: " + after + "\n");
+        System.out.println("Qty Supplied at price: " +  market.getPrice() + " is: " + after + "\n");
 
         assertTrue(before < after);
     }
@@ -43,19 +48,20 @@ public class SupplyTest {
     @Test
     void testQuantitySuppliedDecreaseWhenPriceDecrease() {
         System.out.println("Law of Supply Test 2");
-        Supply supply = new Supply(1000, 10);
+        LinearSupply linearSupply = new LinearSupply(1000, 10);
+         Market market = new Market("Test good", 5, null, linearSupply);
 
-        supply.setPrice(10);
+       
 
-        double before = supply.calculatedQuantitySupplied(supply.getPrice());
+        double before = linearSupply.calculateQuantitySupplied(market.getPrice());
 
-        System.out.println("Qty Supplied at price: " + supply.getPrice() + " is: " + before);
+        System.out.println("QtySupplied at price: " + market.getPrice() + " is: " + before);
 
-        supply.setPrice(5);
+        market.setPrice(1);
 
-        double after = supply.calculatedQuantitySupplied(supply.getPrice());
+        double after = linearSupply.calculateQuantitySupplied(market.getPrice());
 
-        System.out.println("Qty Supplied at price: " + supply.getPrice() + " is: " + after + "\n");
+        System.out.println("QtySupplied at price: " +  market.getPrice() + " is: " + after + "\n");
 
         assertTrue(before > after);
     }
@@ -64,13 +70,15 @@ public class SupplyTest {
     void testQuantitySupplyAtChokePrice() {
         System.out.println("Test Quantity Supplied At Choke Price");
 
-        Supply supply = new Supply(-200, 200);
+        LinearSupply linearSupply = new LinearSupply(-200, 200);
+        Market market = new Market("Test good", 5, null, linearSupply);
+
 
         double expected = 0.00;
 
-        double actual = supply.calculatedQuantitySupplied(1);
+        double actual = linearSupply.calculateQuantitySupplied(1);
         
-        System.out.println("Quantity supplied at price: " + supply.getPrice() + " is: " + "Qs=" + actual + " Expected: " + expected + "\n");
+        System.out.println("Quantity supplied at price: " + market.getPrice() + " is: " + "Qs=" + actual + " Expected: " + expected + "\n");
 
         assertEquals(expected, actual, 0.001);
 
@@ -81,16 +89,19 @@ public class SupplyTest {
     void testQuantitySupplyBelowChokePrice() {
         System.out.println("Test Quantity Supplied Below Choke Price");
 
-        Supply supply = new Supply(-200, 200);
+        
+        LinearSupply supply = new LinearSupply(-200, 200);
+         Market market = new Market("Test good", 5, null, supply);
+
 
         double expected = 0.00;
 
-        supply.setPrice(0.5);
+        market.setPrice(0.5);
 
-        double actual = supply.calculatedQuantitySupplied(supply.getPrice());
+        double actual = supply.calculateQuantitySupplied(market.getPrice());
 
         System.out.println(
-                "Quantity supplied at price: " + supply.getPrice() + " is: " + "Qs=" + actual + " Expected: " + expected + "\n");
+                "Quantity supplied at price: " + market.getPrice() + " is: " + "Qs=" + actual + " Expected: " + expected + "\n");
         
         assertEquals(expected, actual, 0.001);
      
@@ -100,10 +111,11 @@ public class SupplyTest {
     void testNegativeSlopeAsZero(){
         System.out.println("Test Negative Slope");
 
-        Supply supply = new Supply(-200, 200);
+        LinearSupply supply = new LinearSupply(-200, 200);
 
 
-        double actual = supply.calculatedQuantitySupplied(0.5);
+
+        double actual = supply.calculateQuantitySupplied(0.5);
 
         assertEquals(0, actual, 0.001);
 

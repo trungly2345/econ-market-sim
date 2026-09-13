@@ -8,7 +8,7 @@ class DemandTest {
     @Test
     void testQuantityDemanded() {
         System.out.println("Calculate Quantity Demanded Test");
-        Demand demand = new Demand(1000, 10);
+        LinearDemand demand = new LinearDemand(1000, 10);
 
         double expected = 900.0;
         double actual = demand.calculateQuantityDemanded(10);
@@ -21,7 +21,7 @@ class DemandTest {
     @Test 
     void testQuantityDemandedDecreaseWhenPriceIncrease()  {
         System.out.println("Law of Demand Test 1");
-         Demand demand = new Demand(1000, 10);
+         LinearDemand demand = new LinearDemand(1000, 10);
 
          demand.setPrice(0);
 
@@ -42,7 +42,7 @@ class DemandTest {
     @Test 
     void testQuantityDemandedIncreaseWhenPriceDecrease()  {
         System.out.println("Law of Demand Test 2");
-         Demand demand = new Demand(1000, 10);
+         LinearDemand demand = new LinearDemand(1000, 10);
          
          demand.setPrice(10);
 
@@ -63,7 +63,7 @@ class DemandTest {
     void testQuantityDemandedAtChokePrice(){
         System.out.println("Test Quantity Demanded At Choke Price");
 
-        Demand d = new Demand(1000,10);
+        LinearDemand d = new LinearDemand(1000,10);
 
 
         double expected = 0.00;
@@ -80,7 +80,7 @@ class DemandTest {
     void testQuantityDemandedAboveChokePrice(){
         System.out.println("Test Quantity Demanded Above Choke Price");
 
-        Demand d = new Demand(1000,10);
+        LinearDemand d = new LinearDemand(1000,10);
 
 
         double expected = 0.00;

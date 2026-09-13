@@ -1,19 +1,17 @@
 package com.example;
 
-import java.util.Optional;
 
 public class Market{
 
     private String good; 
     private double price; 
-    private Demand demand;
-    private Supply supply; 
-    private EquilibriumResult equilibriumResult;
+    private DemandModel demandModel;
+    private SupplyModel supplyModel; 
         
-    public Market(String good, double price, Demand demand, Supply supply) {
+    public Market(String good, double price, DemandModel demandModel, SupplyModel supplyModel) {
         this.good = good; 
-        this.demand = demand;
-        this.supply = supply;
+        this.demandModel = demandModel;
+        this.supplyModel = supplyModel;
         this.price = price;
     }
     
@@ -35,92 +33,29 @@ public class Market{
         this.price = price;
     }
 
-    public double getQuantityDemanded(){
-        return demand.calculateQuantityDemanded(price);
+    public double getQuantityDemandedAt(double price){
+        return demandModel.calculateQuantityDemanded(price);
     }
 
-    public double getQuantitySupplied(){
-        return supply.calculatedQuantitySupplied(price);
+    public double getQuantitySuppliedAt(double price){
+        return supplyModel.calculateQuantitySupplied(price);
     }
 
-    public double getMarketImbalance(){
-        return getQuantityDemanded() - getQuantitySupplied();
+    public double getMarketImbalanceAt(double price){
+        return getQuantityDemandedAt(price) - getQuantitySuppliedAt(price);
     }
 
     
     public String getStatus(){
         double tolerance = 0.1;
-        if (getMarketImbalance() > tolerance){
+        if (getMarketImbalanceAt(price) > tolerance){
             return "Shortage";
-        }else if (getMarketImbalance() < -tolerance){
+        }else if (getMarketImbalanceAt(price) < -tolerance){
             return "Surplus";
         }else {
             return "Equilibrium";
         }
         
         }
-
-
-    public Optional<EquilibriumResult> findEquilibrium() {
-       
-        double low = 0;
-        int iterations = 0;
-        int max_iterations = 100;
-
-        double high = demand.getDemandIntercept()/demand.getSlope();
-        
-
-        while (iterations < max_iterations){
-        
-        double mid = (low + high) / 2;
-
-        setPrice(mid);
-
-        double qd = getQuantityDemanded();
-        double qs = getQuantitySupplied();
-        double difference = Math.abs(qd - qs);
-
-         if (difference < .1){
-           return Optional.of(new EquilibriumResult(mid, qd, qs));
-         }
-
-        if (qd > qs){
-          low = mid;
-        } else {
-            high = mid;
-        }
-        iterations++;
-    }
-        // NOTE: Change later to Optional<EquilibriumResult> 
-        return Optional.empty();
-
-    }
-
-     public EquilibriumResult findEquilibriumBruteForce(){
-      
-        double startPrice = 0;
-        double maxPrice = demand.getDemandIntercept()/demand.getSlope();
-        
-
-        while (startPrice < maxPrice){
-
-        setPrice(startPrice);
-        double qd = getQuantityDemanded();
-        double qs = getQuantitySupplied();
-        double difference = Math.abs(qd - qs);
-
-         if (difference < .1){
-           return new EquilibriumResult(startPrice, qd, qs);
-         }
-
-         startPrice += 0.01;
-
-    }
-        // NOTE: Change later to Optional<EquilibriumResult> 
-        return null;
-
-    }
-
-
 
  }
