@@ -21,19 +21,25 @@ class DemandTest {
     @Test 
     void testQuantityDemandedDecreaseWhenPriceIncrease()  {
         System.out.println("Law of Demand Test 1");
+
+      
          LinearDemand demand = new LinearDemand(1000, 10);
 
-         demand.setPrice(0);
 
-         double before = demand.calculateQuantityDemanded(demand.getPrice());
+         double before_price = 25;
+         double after_price = 50;
+        
+
+         double before = demand.calculateQuantityDemanded(before_price);
          
-         System.out.println("Qty Demand at price: " + demand.getPrice() + " is: " + before);
+         System.out.println("Qty Demand at price: " + before_price + " is: " + before);
+          
 
-        demand.setPrice(4);
 
-         double after = demand.calculateQuantityDemanded(demand.getPrice());
+         double after = demand.calculateQuantityDemanded(after_price);
+         
 
-         System.out.println("Qty Demand at price: " + demand.getPrice() + " is: " + after +"\n" );
+         System.out.println("Qty Demand at price: " + after_price + " is: " + after +"\n" );
 
          assertTrue(before > after);
     }
@@ -43,18 +49,18 @@ class DemandTest {
     void testQuantityDemandedIncreaseWhenPriceDecrease()  {
         System.out.println("Law of Demand Test 2");
          LinearDemand demand = new LinearDemand(1000, 10);
+        
+
+         double before_price = 10;
+         double after_price = 5;
+         double before = demand.calculateQuantityDemanded(before_price);
          
-         demand.setPrice(10);
+         System.out.println("Qty Demand at price: " + before_price + " is: " + before);
 
-         double before = demand.calculateQuantityDemanded(demand.getPrice());
-         
-         System.out.println("Qty Demanded at price: " + demand.getPrice() + " is: " + before);
+        
+         double after = demand.calculateQuantityDemanded(after_price);
 
-         demand.setPrice(5);
-
-         double after = demand.calculateQuantityDemanded(demand.getPrice());
-
-         System.out.println("Qty Demanded at price: " + demand.getPrice() + " is: " + after +"\n");
+         System.out.println("Qty Demand at price: " + after_price + " is: " + after +"\n");
 
          assertTrue(before < after);
     }
@@ -80,18 +86,20 @@ class DemandTest {
     void testQuantityDemandedAboveChokePrice(){
         System.out.println("Test Quantity Demanded Above Choke Price");
 
+      
         LinearDemand d = new LinearDemand(1000,10);
 
 
         double expected = 0.00;
 
-        d.setPrice(150);
+        // market.setPrice(150);
+        double price = 150;
         
-        double actual = d.calculateQuantityDemanded(d.getPrice());
+        double actual = d.calculateQuantityDemanded(price);
 
         assertEquals(expected, actual, 0.001);
 
-        System.out.println("Quantity Demand At Price: " +d.getPrice() +" is: " + actual + " Expected: " + expected + "\n" );
+        System.out.println("Quantity Demand At Price: " +price +" is: " + actual + " Expected: " + expected + "\n" );
 
     }
 }
