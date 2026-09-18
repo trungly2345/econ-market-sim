@@ -8,6 +8,13 @@ public class QuadraticDemand implements DemandModel{
     private double curvatureB;
     private double maxQuantityDemanded;
 
+
+    public QuadraticDemand(double maxQuantityDemanded, double curvatureA, double curvatureB){
+        this.maxQuantityDemanded = maxQuantityDemanded;
+        this.curvatureA = curvatureA;
+        this.curvatureB = curvatureB;
+    }
+
     public double getCurvatureA() {
         return curvatureA;
     }
@@ -38,7 +45,7 @@ public class QuadraticDemand implements DemandModel{
 
     @Override
     public double calculateQuantityDemanded(double price){
-      double result = (curvatureA * Math.pow(price,2)) - (curvatureB * price) - maxQuantityDemanded;
+      double result = maxQuantityDemanded - (curvatureA * price) - (curvatureB * Math.pow(price,2)) ;
       return Math.max(0,result);
     }
 }

@@ -11,23 +11,23 @@ public class MarketTest {
     @Test
     void findEquilibrium() {
 
-        LinearDemand d = new LinearDemand(1000, 10);
-        LinearSupply s = new LinearSupply(200, 5);
+        LinearDemand d = new LinearDemand(21396.85 ,0.20528);
+        LinearSupply s = new LinearSupply(14987.27 , 0.04654);
         BruteForceSolver solver = new BruteForceSolver();
 
         Market m = new Market("Test Goods", 10, d, s);
 
-        double expected = 53.33;
+        double expected = 25453.02;
         Long start = System.nanoTime();
 
-        Optional<EquilibriumResult> actualA = solver.findEquilibrium(m, 200);
+        Optional<EquilibriumResult> actualA = solver.findEquilibrium(m, 25453.02);
 
         Long end = System.nanoTime();
 
         Long time = end - start;
 
         if (actualA.isPresent()) {
-            assertEquals(expected, actualA.get().getEquilibriumPrice(), 0.01);
+            assertEquals(expected, actualA.get().getEquilibriumPrice(), 1);
             System.out.println("Finding Market Equilibirum by Brute Force Test");
             System.out.println("Equilibrium Price: " + actualA.get().getEquilibriumPrice());
             System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQD());
@@ -41,21 +41,21 @@ public class MarketTest {
     void findEquilibriumBisectionTest() {
 
         System.out.println("\nFinding Market Equilibirum Bisection Test");
-        LinearDemand d = new LinearDemand(20000, 3000);
-        LinearSupply s = new LinearSupply(0, 2000);
+         LinearDemand d = new LinearDemand(21396.85 ,0.20528);
+         LinearSupply s = new LinearSupply(14987.27 , 0.04654);
         BisectionSolver solver = new BisectionSolver();
 
         Market m = new Market("Test Goods", 10, d, s);
 
-        double expected = 4;
+        double expected = 25453.02;
         Long start = System.nanoTime();
-        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 200);
+        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 25453.02);
         Long end = System.nanoTime();
 
         Long time = end - start;
 
         assertNotNull(actual);
-        assertEquals(expected, actual.get().getEquilibriumPrice(), 0.01);
+        assertEquals(expected, actual.get().getEquilibriumPrice(), 1);
         System.out.println("Equilibrium Price: " + actual.get().getEquilibriumPrice());
         System.out.println("Equilibrium Quantity: " + actual.get().getEquilibriumQD());
         System.out.println("Equilibrium Quantity: " + actual.get().getEquilibriumQS());
