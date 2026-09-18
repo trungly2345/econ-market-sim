@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 public class MarketTest {
 
     @Test
-    void findEquilibrium() {
+    void findEquilibriumLinearBruteForce() {
 
-        LinearDemand d = new LinearDemand(21396.85 ,0.20528);
-        LinearSupply s = new LinearSupply(14987.27 , 0.04654);
+        LinearDemand d = new LinearDemand(21396.85, 0.20528);
+        LinearSupply s = new LinearSupply(14987.27, 0.04654);
         BruteForceSolver solver = new BruteForceSolver();
 
         Market m = new Market("Test Goods", 10, d, s);
@@ -28,7 +28,8 @@ public class MarketTest {
 
         if (actualA.isPresent()) {
             assertEquals(expected, actualA.get().getEquilibriumPrice(), 1);
-            System.out.println("Finding Market Equilibirum by Brute Force Test");
+            System.out.println("Finding Market Equilibirum by Brute Force Test using Linear Model");
+
             System.out.println("Equilibrium Price: " + actualA.get().getEquilibriumPrice());
             System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQD());
             System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQS());
@@ -38,11 +39,11 @@ public class MarketTest {
     }
 
     @Test
-    void findEquilibriumBisectionTest() {
+    void findEquilibriumLinearBisection() {
 
-        System.out.println("\nFinding Market Equilibirum Bisection Test");
-         LinearDemand d = new LinearDemand(21396.85 ,0.20528);
-         LinearSupply s = new LinearSupply(14987.27 , 0.04654);
+        System.out.println("\nFinding Market Equilibirum by Bisection Test using Linear Model");
+        LinearDemand d = new LinearDemand(21396.85, 0.20528);
+        LinearSupply s = new LinearSupply(14987.27, 0.04654);
         BisectionSolver solver = new BisectionSolver();
 
         Market m = new Market("Test Goods", 10, d, s);
@@ -61,6 +62,184 @@ public class MarketTest {
         System.out.println("Equilibrium Quantity: " + actual.get().getEquilibriumQS());
         System.out.println("Time elapsed: " + time + " ns");
 
+    }
+
+    @Test
+    void findEquilibriumQuadraticBruteForce() {
+
+        QuadraticDemand d = new QuadraticDemand(1200, 40, 2);
+        QuadraticSupply s = new QuadraticSupply(100, 20, 3);
+
+        BruteForceSolver solver = new BruteForceSolver();
+
+        Market m = new Market("Test Goods", 10, d, s);
+
+        double expected = 10;
+        Long start = System.nanoTime();
+
+        Optional<EquilibriumResult> actualA = solver.findEquilibrium(m, 25453.02);
+
+        Long end = System.nanoTime();
+
+        Long time = end - start;
+
+        if (actualA.isPresent()) {
+            assertEquals(expected, actualA.get().getEquilibriumPrice(), 1);
+            System.out.println("Finding Market Equilibirum by Brute Force Test using Non-Linear Model (Quadratic)");
+            System.out.println("Equilibrium Price: " + actualA.get().getEquilibriumPrice());
+            System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQD());
+            System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQS());
+            System.out.println("Time elapsed: " + time + " ns");
+        }
+
+    }
+
+    @Test
+    void findEquilibriumQuadraticBisection() {
+
+        QuadraticDemand d = new QuadraticDemand(1200, 40, 2);
+        QuadraticSupply s = new QuadraticSupply(100, 20, 3);
+
+        BisectionSolver solver = new BisectionSolver();
+
+        Market m = new Market("Test Goods", 10, d, s);
+
+        double expected = 10;
+        Long start = System.nanoTime();
+
+        Optional<EquilibriumResult> actualA = solver.findEquilibrium(m, 25453.02);
+
+        Long end = System.nanoTime();
+
+        Long time = end - start;
+
+        if (actualA.isPresent()) {
+            assertEquals(expected, actualA.get().getEquilibriumPrice(), 1);
+            System.out.println("Finding Market Equilibirum by Brute Force Test using Non-Linear Model (Quadratic)");
+            System.out.println("Equilibrium Price: " + actualA.get().getEquilibriumPrice());
+            System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQD());
+            System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQS());
+            System.out.println("Time elapsed: " + time + " ns");
+        }
+
+    }
+
+    @Test
+    void findEquilibriumExponentialDemandBruteForce() {
+
+        ExponentialDemand d = new ExponentialDemand(1200, 0.0693147);
+        LinearSupply s = new LinearSupply(100, 50);
+
+        BruteForceSolver solver = new BruteForceSolver();
+
+        Market m = new Market("Test Goods", 10, d, s);
+
+        double expected = 10;
+        Long start = System.nanoTime();
+
+        Optional<EquilibriumResult> actualA = solver.findEquilibrium(m, 25453.02);
+
+        Long end = System.nanoTime();
+
+        Long time = end - start;
+
+        if (actualA.isPresent()) {
+            assertEquals(expected, actualA.get().getEquilibriumPrice(), 1);
+            System.out.println("Finding Market Equilibirum by Brute Force Test using Non-Linear Model (Exponential)");
+            System.out.println("Equilibrium Price: " + actualA.get().getEquilibriumPrice());
+            System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQD());
+            System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQS());
+            System.out.println("Time elapsed: " + time + " ns");
+        }
+    }
+
+    @Test
+    void findEquilibriumExponentialDemandBisection() {
+
+        ExponentialDemand d = new ExponentialDemand(1200, 0.0693147);
+        LinearSupply s = new LinearSupply(100, 50);
+
+        BisectionSolver solver = new BisectionSolver();
+
+        Market m = new Market("Test Goods", 10, d, s);
+
+        double expected = 10;
+        Long start = System.nanoTime();
+
+        Optional<EquilibriumResult> actualA = solver.findEquilibrium(m, 25453.02);
+
+        Long end = System.nanoTime();
+
+        Long time = end - start;
+
+        if (actualA.isPresent()) {
+            assertEquals(expected, actualA.get().getEquilibriumPrice(), 1);
+            System.out.println("Finding Market Equilibirum by Brute Force Test using Non-Linear Model (Exponential)");
+            System.out.println("Equilibrium Price: " + actualA.get().getEquilibriumPrice());
+            System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQD());
+            System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQS());
+            System.out.println("Time elapsed: " + time + " ns");
+        }
+    }
+
+    @Test
+    void findEquilibriumExponentialQuadraticBruteForce() {
+
+        ExponentialDemand d = new ExponentialDemand(1200, 0.0693147);
+        QuadraticSupply s = new QuadraticSupply(100, 20, 3);
+
+        BruteForceSolver solver = new BruteForceSolver();
+
+        Market m = new Market("Test Goods", 10, d, s);
+
+        double expected = 10;
+        Long start = System.nanoTime();
+
+        Optional<EquilibriumResult> actualA = solver.findEquilibrium(m, 25453.02);
+
+        Long end = System.nanoTime();
+
+        Long time = end - start;
+
+        if (actualA.isPresent()) {
+            assertEquals(expected, actualA.get().getEquilibriumPrice(), 1);
+            System.out.println(
+                    "Finding Market Equilibirum by Brute Force Test using Non-Linear Model (Exponential-Quadratic)");
+            System.out.println("Equilibrium Price: " + actualA.get().getEquilibriumPrice());
+            System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQD());
+            System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQS());
+            System.out.println("Time elapsed: " + time + " ns");
+        }
+    }
+
+    @Test
+    void findEquilibriumExponentialQuadraticBisection() {
+
+        ExponentialDemand d = new ExponentialDemand(1200, 0.0693147);
+        QuadraticSupply s = new QuadraticSupply(100, 20, 3);
+
+        BisectionSolver solver = new BisectionSolver();
+
+        Market m = new Market("Test Goods", 10, d, s);
+
+        double expected = 10;
+        Long start = System.nanoTime();
+
+        Optional<EquilibriumResult> actualA = solver.findEquilibrium(m, 25453.02);
+
+        Long end = System.nanoTime();
+
+        Long time = end - start;
+
+        if (actualA.isPresent()) {
+            assertEquals(expected, actualA.get().getEquilibriumPrice(), 1);
+            System.out.println(
+                    "Finding Market Equilibirum by Brute Force Test using Non-Linear Model (Exponential-Quadratic)");
+            System.out.println("Equilibrium Price: " + actualA.get().getEquilibriumPrice());
+            System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQD());
+            System.out.println("Equilibrium Quantity: " + actualA.get().getEquilibriumQS());
+            System.out.println("Time elapsed: " + time + " ns");
+        }
     }
 
     @Test
@@ -87,7 +266,76 @@ public class MarketTest {
     }
 
     @Test
-    void TestMarketStatus() {
+    void testWtihinTolerelanceQuadratic() {
+        System.out.println("\nTest Quanitites within Tolerance ");
+        QuadraticDemand d = new QuadraticDemand(1000, 40, 2);
+        QuadraticSupply s = new QuadraticSupply(100, 20, 3);
+        EquilibirumSolver solver = new BisectionSolver();
+
+        Market m = new Market("Test Goods", 10, d, s);
+
+        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 200);
+
+        assertNotNull(actual);
+        double tolerance = 0.1;
+
+        double difference = Math.abs(actual.get().getEquilibriumQD() - actual.get().getEquilibriumQS());
+
+        System.out.println("Equilibrium Quantity Demanded: " + actual.get().getEquilibriumQD());
+        System.out.println("Equilibrium Quantity Supplied: " + actual.get().getEquilibriumQS());
+        System.out.println("Difference: " + difference + " within tolerance 0.1\n");
+        assertTrue(difference < tolerance);
+
+    }
+
+    @Test
+    void testWtihinTolerelanceExponentialLinear() {
+        System.out.println("\nTest Quanitites within Tolerance ");
+        ExponentialDemand d = new ExponentialDemand(1200, 0.0693147);
+        LinearSupply s = new LinearSupply(100, 50);
+        EquilibirumSolver solver = new BisectionSolver();
+
+        Market m = new Market("Test Goods", 10, d, s);
+
+        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 200);
+
+        assertNotNull(actual);
+        double tolerance = 0.1;
+
+        double difference = Math.abs(actual.get().getEquilibriumQD() - actual.get().getEquilibriumQS());
+
+        System.out.println("Equilibrium Quantity Demanded: " + actual.get().getEquilibriumQD());
+        System.out.println("Equilibrium Quantity Supplied: " + actual.get().getEquilibriumQS());
+        System.out.println("Difference: " + difference + " within tolerance 0.1\n");
+        assertTrue(difference < tolerance);
+
+    }
+
+    @Test
+    void testWtihinTolerelanceExponentialQuadratic() {
+        System.out.println("\nTest Quanitites within Tolerance ");
+        ExponentialDemand d = new ExponentialDemand(1200, 0.0693147);
+        QuadraticSupply s = new QuadraticSupply(100, 20, 3);
+        EquilibirumSolver solver = new BisectionSolver();
+
+        Market m = new Market("Test Goods", 10, d, s);
+
+        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 200);
+
+        assertNotNull(actual);
+        double tolerance = 0.1;
+
+        double difference = Math.abs(actual.get().getEquilibriumQD() - actual.get().getEquilibriumQS());
+
+        System.out.println("Equilibrium Quantity Demanded: " + actual.get().getEquilibriumQD());
+        System.out.println("Equilibrium Quantity Supplied: " + actual.get().getEquilibriumQS());
+        System.out.println("Difference: " + difference + " within tolerance 0.1\n");
+        assertTrue(difference < tolerance);
+
+    }
+
+    @Test
+    void TestMarketStatusLinear() {
 
         System.out.println("Test Market Status ");
         LinearDemand d = new LinearDemand(1000, 10);
@@ -132,6 +380,141 @@ public class MarketTest {
     }
 
     @Test
+    void TestMarketStatusQuadratic() {
+
+        System.out.println("Test Market Status ");
+        QuadraticDemand d = new QuadraticDemand(1000, 40, 2);
+        QuadraticSupply s = new QuadraticSupply(100, 20, 3);
+
+        Market m = new Market("Test Good", 10, d, s);
+
+        String actual = m.getStatus();
+        String expected = "Shortage";
+
+        System.out.println("Quantity Demanded " + m.getQuantityDemandedAt(m.getPrice()));
+        System.out.println("Quantity Supplied " + m.getQuantitySuppliedAt(m.getPrice()));
+
+        System.out.println("Market Status should be in " + expected + " and the actual status is " + actual + "\n");
+
+        d.setBaseDemand(200);
+        s.setBaseSupply(200);
+
+        String actual1 = m.getStatus();
+        String expected1 = "Surplus";
+
+        System.out.println("Quantity Demanded " + m.getQuantityDemandedAt(m.getPrice()));
+        System.out.println("Quantity Supplied " + m.getQuantitySuppliedAt(m.getPrice()));
+        System.out.println("Market Status should be in " + expected1 + " and the actual status is " + actual1 + "\n");
+
+        d.setBaseDemand(1000);
+        s.setBaseSupply(200);
+
+        m.setPrice(53.33);
+
+        String actual2 = m.getStatus();
+        String expected2 = "Equilibrium";
+
+        System.out.println("Quantity Demanded " + m.getQuantityDemandedAt(m.getPrice()));
+        System.out.println("Quantity Supplied " + m.getQuantitySuppliedAt(m.getPrice()));
+        System.out.println("Market Status should be in " + expected2 + " and the actual status is " + actual2 + "\n");
+
+        assertEquals(expected, actual);
+        assertEquals(expected1, actual1);
+        assertEquals(expected2, actual2);
+
+    }
+
+    @Test
+    void testMarketStatusExponentialLinear() {
+
+        System.out.println("Test Market Status ");
+        ExponentialDemand d = new ExponentialDemand(1000, 0.0693147);
+        LinearSupply s = new LinearSupply(200, 5);
+
+        Market m = new Market("Test Good", 10, d, s);
+
+        String actual = m.getStatus();
+        String expected = "Shortage";
+
+        System.out.println("Quantity Demanded " + m.getQuantityDemandedAt(m.getPrice()));
+        System.out.println("Quantity Supplied " + m.getQuantitySuppliedAt(m.getPrice()));
+
+        System.out.println("Market Status should be in " + expected + " and the actual status is " + actual + "\n");
+
+        d.setBaseDemand(200);
+        s.setBaseSupply(200);
+
+        String actual1 = m.getStatus();
+        String expected1 = "Surplus";
+
+        System.out.println("Quantity Demanded " + m.getQuantityDemandedAt(m.getPrice()));
+        System.out.println("Quantity Supplied " + m.getQuantitySuppliedAt(m.getPrice()));
+        System.out.println("Market Status should be in " + expected1 + " and the actual status is " + actual1 + "\n");
+
+        d.setBaseDemand(1000);
+        s.setBaseSupply(200);
+
+        m.setPrice(53.33);
+
+        String actual2 = m.getStatus();
+        String expected2 = "Equilibrium";
+
+        System.out.println("Quantity Demanded " + m.getQuantityDemandedAt(m.getPrice()));
+        System.out.println("Quantity Supplied " + m.getQuantitySuppliedAt(m.getPrice()));
+        System.out.println("Market Status should be in " + expected2 + " and the actual status is " + actual2 + "\n");
+
+        assertEquals(expected, actual);
+        assertEquals(expected1, actual1);
+        assertEquals(expected2, actual2);
+
+    }
+
+    @Test
+    void testMarketStatusExponentialQuadratic() {
+
+        System.out.println("Test Market Status ");
+        ExponentialDemand d = new ExponentialDemand(1000, 0.0693147);
+        QuadraticSupply s = new QuadraticSupply(100, 20, 3);
+
+        Market m = new Market("Test Good", 10, d, s);
+
+        String actual = m.getStatus();
+        String expected = "Surplus";
+
+        System.out.println("Quantity Demanded " + m.getQuantityDemandedAt(m.getPrice()));
+        System.out.println("Quantity Supplied " + m.getQuantitySuppliedAt(m.getPrice()));
+
+        System.out.println("Market Status should be in " + expected + " and the actual status is " + actual + "\n");
+
+        d.setBaseDemand(200);
+        s.setBaseSupply(200);
+
+        String actual1 = m.getStatus();
+        String expected1 = "Surplus";
+
+        System.out.println("Quantity Demanded " + m.getQuantityDemandedAt(m.getPrice()));
+        System.out.println("Quantity Supplied " + m.getQuantitySuppliedAt(m.getPrice()));
+        System.out.println("Market Status should be in " + expected1 + " and the actual status is " + actual1 + "\n");
+
+        d.setBaseDemand(1000);
+        s.setBaseSupply(200);
+
+        m.setPrice(53.33);
+
+        String actual2 = m.getStatus();
+        String expected2 = "Surplus";
+
+        System.out.println("Quantity Demanded " + m.getQuantityDemandedAt(m.getPrice()));
+        System.out.println("Quantity Supplied " + m.getQuantitySuppliedAt(m.getPrice()));
+        System.out.println("Market Status should be in " + expected2 + " and the actual status is " + actual2 + "\n");
+
+        assertEquals(expected, actual);
+        assertEquals(expected1, actual1);
+        assertEquals(expected2, actual2);
+
+    }
+
+    @Test
     void testNoEquilibrium() {
 
         System.out.println("No equilibrium found test\n");
@@ -151,7 +534,83 @@ public class MarketTest {
     }
 
     @Test
-    void solverShouldNotMutateMarketPrice() {
+    void testNoEquilibriumQuadraticLinear() {
+
+        System.out.println("No equilibrium found test\n");
+
+        QuadraticDemand d = new QuadraticDemand(100, 10, 5);
+        LinearSupply s = new LinearSupply(500, 5);
+
+        Market m = new Market("Test Goods", 10, d, s);
+        EquilibirumSolver solver = new BruteForceSolver();
+
+        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 200);
+
+        assertTrue(actual.isEmpty());
+
+        System.out.println("Equilibrium not found at price " + m.getPrice() + "\n");
+
+    }
+
+    @Test
+    void testNoEquilibriumQuadraticQuadratic() {
+
+        System.out.println("No equilibrium found test\n");
+
+        QuadraticDemand d = new QuadraticDemand(100, 10, 5);
+        QuadraticSupply s = new QuadraticSupply(500, 20, 3);
+
+        Market m = new Market("Test Goods", 10, d, s);
+        EquilibirumSolver solver = new BruteForceSolver();
+
+        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 200);
+
+        assertTrue(actual.isEmpty());
+
+        System.out.println("Equilibrium not found at price " + m.getPrice() + "\n");
+
+    }
+
+    @Test
+    void testNoEquilibriumExponentialLinear() {
+
+        System.out.println("No equilibrium found test\n");
+
+        ExponentialDemand d = new ExponentialDemand(100, 0.0693147);
+        LinearSupply s = new LinearSupply(500, 5);
+
+        Market m = new Market("Test Goods", 10, d, s);
+        EquilibirumSolver solver = new BruteForceSolver();
+
+        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 200);
+
+        assertTrue(actual.isEmpty());
+
+        System.out.println("Equilibrium not found at price " + m.getPrice() + "\n");
+
+    }
+
+    @Test
+    void testNoEquilibriumExponentialQuadratic() {
+
+        System.out.println("No equilibrium found test\n");
+
+        ExponentialDemand d = new ExponentialDemand(100, 0.0693147);
+        QuadraticSupply s = new QuadraticSupply(500, 20, 3);
+
+        Market m = new Market("Test Goods", 10, d, s);
+        EquilibirumSolver solver = new BruteForceSolver();
+
+        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 200);
+
+        assertTrue(actual.isEmpty());
+
+        System.out.println("Equilibrium not found at price " + m.getPrice() + "\n");
+
+    }
+
+    @Test
+    void solverShouldNotMutateMarketPriceLinear() {
 
         DemandModel d = new LinearDemand(100, 10);
         LinearSupply s = new LinearSupply(200, 5);
@@ -170,4 +629,82 @@ public class MarketTest {
                 "Testing Market Price Immutaiblity Actual Market Price: " + m.getPrice() + "\n");
 
     }
+
+    @Test
+    void solverShouldNotMutateMarketPriceQuadraticLinear() {
+        DemandModel d = new QuadraticDemand(100, 10, 5);
+        LinearSupply s = new LinearSupply(200, 5);
+        double initial_market_price = 10.5;
+        Market m = new Market("Test Goods", initial_market_price, d, s);
+
+        BisectionSolver solver = new BisectionSolver();
+
+        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 10);
+
+        double expected_market_price = initial_market_price;
+        assertNotNull(actual);
+        assertEquals(expected_market_price, m.getPrice());
+        System.out.println("Testing Market Price Immutaiblity Expected Market Price: " + expected_market_price + "\n");
+        System.out.println(
+                "Testing Market Price Immutaiblity Actual Market Price: " + m.getPrice() + "\n");
+
+    }
+
+    @Test
+    void solverShouldNotMutateMarketPriceQuadraticQuadratic() {
+        DemandModel d = new QuadraticDemand(100, 10, 5);
+        QuadraticSupply s = new QuadraticSupply(200, 20, 3);
+        double initial_market_price = 10.5;
+        Market m = new Market("Test Goods", initial_market_price, d, s);
+
+        BisectionSolver solver = new BisectionSolver();
+
+        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 10);
+
+        double expected_market_price = initial_market_price;
+        assertNotNull(actual);
+        assertEquals(expected_market_price, m.getPrice());
+        System.out.println("Testing Market Price Immutaiblity Expected Market Price: " + expected_market_price + "\n");
+        System.out.println(
+                "Testing Market Price Immutaiblity Actual Market Price: " + m.getPrice() + "\n");
+    }
+
+    @Test
+    void solverShouldNotMutateMarketPriceExponentialLinear() {
+        DemandModel d = new ExponentialDemand(100, 0.0693147);
+        LinearSupply s = new LinearSupply(200, 5);
+        double initial_market_price = 10.5;
+        Market m = new Market("Test Goods", initial_market_price, d, s);
+
+        BisectionSolver solver = new BisectionSolver();
+
+        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 10);
+
+        double expected_market_price = initial_market_price;
+        assertNotNull(actual);
+        assertEquals(expected_market_price, m.getPrice());
+        System.out.println("Testing Market Price Immutaiblity Expected Market Price: " + expected_market_price + "\n");
+        System.out.println(
+                "Testing Market Price Immutaiblity Actual Market Price: " + m.getPrice() + "\n");
+    }
+
+    @Test
+    void solverShouldNotMutateMarketPriceExponentialQuadratic() {
+        DemandModel d = new ExponentialDemand(100, 0.0693147);
+        QuadraticSupply s = new QuadraticSupply(200, 20, 3);
+        double initial_market_price = 10.5;
+        Market m = new Market("Test Goods", initial_market_price, d, s);
+
+        BisectionSolver solver = new BisectionSolver();
+
+        Optional<EquilibriumResult> actual = solver.findEquilibrium(m, 10);
+
+        double expected_market_price = initial_market_price;
+        assertNotNull(actual);
+        assertEquals(expected_market_price, m.getPrice());
+        System.out.println("Testing Market Price Immutaiblity Expected Market Price: " + expected_market_price + "\n");
+        System.out.println(
+                "Testing Market Price Immutaiblity Actual Market Price: " + m.getPrice() + "\n");
+    }
+
 }

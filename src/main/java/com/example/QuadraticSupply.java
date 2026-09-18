@@ -4,7 +4,13 @@ public class QuadraticSupply implements SupplyModel {
     // Q_s = aP^2 + bP + c
     private double curvatureA; 
     private double curvatureB;
-    private double maxQuantitySupplied;
+    private double baseSupply;
+
+    public QuadraticSupply(double baseSupply,double curvatureA,double curvatureB ) {
+        this.curvatureA = curvatureA;
+        this.curvatureB = curvatureB;
+        this.baseSupply = baseSupply;
+    }
 
 
      public double getCurvatureA() {
@@ -24,14 +30,17 @@ public class QuadraticSupply implements SupplyModel {
         this.curvatureB = curvutureB;
     }
 
-    public double getMaxQuantitySupplied() {
-        return maxQuantitySupplied;
+    public double getBaseSupply() {
+        return baseSupply;
+    }
+    public void setBaseSupply(double baseSupply) {
+        this.baseSupply = baseSupply;
     }
 
     @Override
     public double calculateQuantitySupplied(double price) {
         
-      double result = (curvatureA * Math.pow(price,2)) + (curvatureB * price) + maxQuantitySupplied;
+      double result = baseSupply + (curvatureA * price) + (curvatureB * Math.pow(price,2)) ;
       return Math.max(0,result);
     }
     
