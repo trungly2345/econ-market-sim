@@ -383,12 +383,14 @@ public class MarketTest {
     void TestMarketStatusQuadratic() {
 
         System.out.println("Test Market Status ");
-        QuadraticDemand d = new QuadraticDemand(1000, 40, 2);
-        QuadraticSupply s = new QuadraticSupply(100, 20, 3);
+        QuadraticDemand demand = new QuadraticDemand(12, 0.4, 0.08);
 
-        Market m = new Market("Test Good", 10, d, s);
+        QuadraticSupply supply = new QuadraticSupply(5.5, 0.6, 0.1);
+
+        Market m = new Market("Test Good", 1, demand, supply);
 
         String actual = m.getStatus();
+
         String expected = "Shortage";
 
         System.out.println("Quantity Demanded " + m.getQuantityDemandedAt(m.getPrice()));
@@ -396,8 +398,7 @@ public class MarketTest {
 
         System.out.println("Market Status should be in " + expected + " and the actual status is " + actual + "\n");
 
-        d.setBaseDemand(200);
-        s.setBaseSupply(200);
+        m.setPrice(5);
 
         String actual1 = m.getStatus();
         String expected1 = "Surplus";
@@ -406,10 +407,7 @@ public class MarketTest {
         System.out.println("Quantity Supplied " + m.getQuantitySuppliedAt(m.getPrice()));
         System.out.println("Market Status should be in " + expected1 + " and the actual status is " + actual1 + "\n");
 
-        d.setBaseDemand(1000);
-        s.setBaseSupply(200);
-
-        m.setPrice(53.33);
+        m.setPrice(3.84);
 
         String actual2 = m.getStatus();
         String expected2 = "Equilibrium";
@@ -428,10 +426,11 @@ public class MarketTest {
     void testMarketStatusExponentialLinear() {
 
         System.out.println("Test Market Status ");
-        ExponentialDemand d = new ExponentialDemand(1000, 0.0693147);
-        LinearSupply s = new LinearSupply(200, 5);
+        ExponentialDemand demand = new ExponentialDemand(10000, 0.04);
 
-        Market m = new Market("Test Good", 10, d, s);
+        LinearSupply supply = new LinearSupply(-1000, 250);
+
+        Market m = new Market("Test Good", 15, demand, supply);
 
         String actual = m.getStatus();
         String expected = "Shortage";
@@ -441,9 +440,7 @@ public class MarketTest {
 
         System.out.println("Market Status should be in " + expected + " and the actual status is " + actual + "\n");
 
-        d.setBaseDemand(200);
-        s.setBaseSupply(200);
-
+        m.setPrice(30);
         String actual1 = m.getStatus();
         String expected1 = "Surplus";
 
@@ -451,10 +448,7 @@ public class MarketTest {
         System.out.println("Quantity Supplied " + m.getQuantitySuppliedAt(m.getPrice()));
         System.out.println("Market Status should be in " + expected1 + " and the actual status is " + actual1 + "\n");
 
-        d.setBaseDemand(1000);
-        s.setBaseSupply(200);
-
-        m.setPrice(53.33);
+        m.setPrice(21.15897);
 
         String actual2 = m.getStatus();
         String expected2 = "Equilibrium";
