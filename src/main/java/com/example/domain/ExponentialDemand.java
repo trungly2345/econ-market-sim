@@ -1,6 +1,6 @@
-package com.example;
+package com.example.domain;
 
-    public class ExponentialDemand implements DemandModel {
+public class ExponentialDemand implements DemandModel {
 
 
         private double baseDemand;

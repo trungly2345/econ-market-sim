@@ -1,4 +1,4 @@
-package com.example;
+package com.example.domain;
 
 public class LinearDemand implements DemandModel {
     private double baseDemand; 

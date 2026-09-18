@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import com.example.domain.LinearSupply;
+import com.example.domain.QuadraticSupply;
+
 
 public class SupplyTest {
 

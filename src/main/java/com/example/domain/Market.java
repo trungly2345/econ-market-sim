@@ -1,5 +1,4 @@
-package com.example;
-
+package com.example.domain;
 
 public class Market{
 

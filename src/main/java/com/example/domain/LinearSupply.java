@@ -1,4 +1,4 @@
-package com.example;
+package com.example.domain;
 
 public class LinearSupply implements SupplyModel {
    private double baseSupply; 

@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.example.domain.ExponentialDemand;
+import com.example.domain.LinearDemand;
+import com.example.domain.QuadraticDemand;
+
 class DemandTest {
 
     @Test

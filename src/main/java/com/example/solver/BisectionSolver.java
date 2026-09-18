@@ -1,6 +1,9 @@
-package com.example;
+package com.example.solver;
 
 import java.util.Optional;
+
+import com.example.domain.EquilibriumResult;
+import com.example.domain.Market;
 
 public class BisectionSolver implements EquilibirumSolver {
 

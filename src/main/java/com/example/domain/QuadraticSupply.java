@@ -1,4 +1,5 @@
-package com.example;
+package com.example.domain;
+
 public class QuadraticSupply implements SupplyModel {
 
     // Q_s = aP^2 + bP + c

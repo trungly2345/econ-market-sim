@@ -6,6 +6,18 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import com.example.domain.DemandModel;
+import com.example.domain.EquilibriumResult;
+import com.example.domain.ExponentialDemand;
+import com.example.domain.LinearDemand;
+import com.example.domain.LinearSupply;
+import com.example.domain.Market;
+import com.example.domain.QuadraticDemand;
+import com.example.domain.QuadraticSupply;
+import com.example.solver.BisectionSolver;
+import com.example.solver.BruteForceSolver;
+import com.example.solver.EquilibirumSolver;
+
 public class MarketTest {
 
     @Test
