@@ -26,7 +26,7 @@ public class BruteForceSolver implements EquilibirumSolver {
          price += 0.01;
 
     }
-        // NOTE: Change later to Optional<EquilibriumResult> 
+        
         return Optional.empty();
 
     }
