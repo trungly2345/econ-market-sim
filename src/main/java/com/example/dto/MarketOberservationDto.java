@@ -8,7 +8,7 @@ public class MarketOberservationDto {
 
     private String product_name;
     private double price;
-    private List<Unit> units;
+    private double units;
 
 
     public String getProduct_name() {
@@ -23,10 +23,10 @@ public class MarketOberservationDto {
     public void setPrice(double price) {
         this.price = price;
     }
-    public List<Unit> getUnits() {
+    public double getUnits() {
         return units;
     }
-    public void setUnits(List<Unit> units) {
+    public void setUnits(double units) {
         this.units = units;
     } 
     
