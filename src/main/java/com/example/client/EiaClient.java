@@ -23,9 +23,11 @@ public class EiaClient {
 
   }
 
-  public HttpResponse<String> fetchData(String seriesID) throws IOException, InterruptedException {
 
-    String uri = baseUrl + "/series/data/?series_id=" + seriesID + "&api_key=" + apiKey;
+
+  public HttpResponse<String> fetchData(String route) throws IOException, InterruptedException {
+
+    String uri = baseUrl + "/" + route + "&api_key=" + apiKey;
     ObjectMapper mapper = new ObjectMapper();
 
     HttpRequest request = HttpRequest.newBuilder().header("Accept", "application/json").uri(URI.create(uri)).GET()
@@ -40,15 +42,14 @@ public class EiaClient {
 
         .get("data");
 
-    JsonNode firstObservation = data.get(0);
+   
 
-    JsonNode secondObservation = data.get(1);
 
     System.out.println("Status Code " + response.statusCode());
 
-    System.out.println(firstObservation);
+    System.out.println(response.body());
 
-    System.out.println(secondObservation);
+   
 
     return response;
   }
