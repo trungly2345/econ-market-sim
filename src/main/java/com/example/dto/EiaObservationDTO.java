@@ -1,68 +1,70 @@
 package com.example.dto;
 
 import java.time.LocalDate;
+import java.util.Collection;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EiaObservationDTO {
 
-    private LocalDate period;
+    private String period;
+
+    private String duoarea; 
+
+    private String product_name; 
 
     private double value;
 
-    private double units;
 
-    private String series;
-
-    private String areaName; 
-
-    private String processName; 
-
-    private String seriesDescription;
-
-    public LocalDate getPeriod() {
+    @JsonProperty("period")
+    public String getPeriod() {
         return period;
     }
-    public void setPeriod(LocalDate period) {
-        this.period = period;   
+
+    @JsonProperty("period")
+    public void setPeriod(String period) {
+        this.period = period;
     }
+    
+    @JsonProperty("duoarea")
+    public String getDuoarea() {
+        return duoarea;
+    }
+
+    @JsonProperty("duoarea")
+    public void setDuoarea(String duoarea) {
+        this.duoarea = duoarea;
+    }
+    
+    @JsonProperty("product_name")
+    public String getProduct_name() {
+        return product_name;
+    }
+
+    @JsonProperty("product_name")
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
+
+    @JsonProperty("value")
     public double getValue() {
         return value;
     }
+
+    @JsonProperty("value")
     public void setValue(double value) {
         this.value = value;
     }
-    public double getUnits() {
-        return units;
-    }
-    public void setUnits(double units) {
-        this.units = units;
-    }
-    public String getSeries() {
-        return series;
-    }
-    public void setSeries(String series) {
-        this.series = series;
-    }
-    public String getAreaName() {
-        return areaName;
-    }
-    public void setAreaName(String areaName) {
-        this.areaName = areaName;
-    }
-    public String getProcessName() {
-        return processName;
-    }
-    public void setProcessName(String processName) {
-        this.processName = processName;
-    }
-    public String getSeriesDescription() {
-        return seriesDescription;
-    }
-    public void setSeriesDescription(String seriesDescription) {
-        this.seriesDescription = seriesDescription;
+
+    @Override
+    public String toString() {
+    return "EiaObservationDTO{" +
+            "period='" + period + '\'' +
+            ", duoarea='" + duoarea + '\'' +
+            ", product_name='" + product_name + '\'' +
+            ", value=" + value +
+            '}';
     }
 
 
-
-
-    
 }

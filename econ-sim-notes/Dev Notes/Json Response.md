@@ -1,0 +1,3 @@
+
+EIA data response for prices 
+[EiaObservationDTO{period='2026-06', duoarea='NUS', product_name='Natural Gas', value=24.09}, EiaObservationDTO{period='2026-05', duoarea='NUS', product_name='Natural Gas', value=19.73}, EiaObservationDTO{period='2026-04', duoarea='NUS', product_name='Natural Gas', value=18.04}, EiaObservationDTO{period='2026-03', duoarea='NUS', product_name='Natural Gas', value=16.16}, EiaObservationDTO{period='2026-02', duoarea='NUS', product_name='Natural Gas', value=14.95}, EiaObservationDTO{period='2026-01', duoarea='NUS', product_name='Natural Gas', value=13.96}]

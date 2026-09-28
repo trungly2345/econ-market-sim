@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "EiaClient.java.md",
+                "file": "Dev Notes/Untitled.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "EiaClient.java"
+              "title": "Untitled"
             }
           }
         ]
@@ -99,9 +99,9 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "EiaClient.java.md",
-                "collapseAll": false,
-                "extraContext": false,
+                "file": "Dev Notes/Untitled.md",
+                "collapseAll": true,
+                "extraContext": true,
                 "sortOrder": "alphabetical",
                 "showSearch": false,
                 "searchQuery": "",
@@ -189,8 +189,15 @@
   },
   "active": "e22e499098d95c13",
   "lastOpenFiles": [
+    "Dev Notes/Json Response.md",
+    "Dev Notes/FetchData().md",
+    "Dev Notes/Untitled.canvas",
+    "Dev Notes/Untitled.md",
     "Econ-Sim webapp.md",
+    "MarketDataService.java.md",
+    "Dev Notes/DevNotes.md ",
     "EiaClient.java.md",
+    "Dev Notes",
     "Untitled.base"
   ]
 }
