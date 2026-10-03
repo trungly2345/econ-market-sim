@@ -1,4 +1,5 @@
 MarketDataService
+[[Class Design Review Template]]
 
 USE CASE:
 Retrieve and prepare data for a specific market.

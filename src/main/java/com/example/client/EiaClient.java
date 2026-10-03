@@ -29,7 +29,7 @@ public class EiaClient {
 
   }
 
-  public List<EiaObservationDTO> fetchData(String route) throws IOException, InterruptedException {
+  public List<EiaObservationDTO> fetchPriceData(String route) throws IOException, InterruptedException {
 
     String uri = baseUrl + "/" + route + "&api_key=" + apiKey;
 
@@ -64,23 +64,12 @@ public class EiaClient {
 
       }
 
-     
-    
-
-
-      
-
-
-
     } catch (IOException e) {
       // TODO: handle exception
       e.printStackTrace();
     }
-
-    
    
-    
-
+  
     System.out.println("Status Code " + response.statusCode());
     // System.out.println(response.body());
     
