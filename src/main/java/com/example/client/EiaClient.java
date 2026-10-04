@@ -1,19 +1,20 @@
 package com.example.client;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
 import com.example.dto.EiaObservationDTO;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.net.http.HttpRequest;
+
 
 public class EiaClient {
 
@@ -43,7 +44,6 @@ public class EiaClient {
 
     List<EiaObservationDTO> eiaData = new ArrayList<>();
 
-    try {
       JsonNode root = mapper.readTree(response.body());
       JsonNode dataNode = root.path("response").path("data");
 
@@ -52,22 +52,17 @@ public class EiaClient {
       String period = observation.path("period").asText();
       String duoarea = observation.path("duoarea").asText();
       String product_name = observation.path("product-name").asText();
-      double value = observation.path("value").asDouble();
+      BigDecimal value = new BigDecimal(observation.path("value").asText());
 
       EiaObservationDTO dto = new EiaObservationDTO();
       dto.setPeriod(period);
       dto.setDuoarea(duoarea);
-      dto.setProduct_name(product_name);
+      dto.setProductName(product_name);
       dto.setValue(value);
-
       eiaData.add(dto);
-
       }
 
-    } catch (IOException e) {
-      // TODO: handle exception
-      e.printStackTrace();
-    }
+    
    
   
     System.out.println("Status Code " + response.statusCode());
@@ -78,5 +73,8 @@ public class EiaClient {
     return eiaData;
   
   }
+
+
+  
 
 }

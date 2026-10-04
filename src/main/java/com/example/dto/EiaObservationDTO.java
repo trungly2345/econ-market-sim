@@ -1,7 +1,7 @@
 package com.example.dto;
 
-import java.time.LocalDate;
-import java.util.Collection;
+
+import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,9 +11,9 @@ public class EiaObservationDTO {
 
     private String duoarea; 
 
-    private String product_name; 
+    private String productName; 
 
-    private double value;
+    private BigDecimal value;
 
 
     @JsonProperty("period")
@@ -26,10 +26,7 @@ public class EiaObservationDTO {
         this.period = period;
     }
     
-    @JsonProperty("duoarea")
-    public String getDuoarea() {
-        return duoarea;
-    }
+ 
 
     @JsonProperty("duoarea")
     public void setDuoarea(String duoarea) {
@@ -37,22 +34,22 @@ public class EiaObservationDTO {
     }
     
     @JsonProperty("product_name")
-    public String getProduct_name() {
-        return product_name;
+    public String getProductName() {
+        return productName;
     }
 
     @JsonProperty("product_name")
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setProductName(String product_name) {
+        this.productName = product_name;
     }
 
     @JsonProperty("value")
-    public double getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 
     @JsonProperty("value")
-    public void setValue(double value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
     }
 
@@ -61,7 +58,7 @@ public class EiaObservationDTO {
     return "EiaObservationDTO{" +
             "period='" + period + '\'' +
             ", duoarea='" + duoarea + '\'' +
-            ", product_name='" + product_name + '\'' +
+            ", product_name='" + productName + '\'' +
             ", value=" + value +
             '}';
     }

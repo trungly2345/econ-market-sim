@@ -9,13 +9,13 @@ import com.example.Enums.PriceUnit;
 
 
 
-public class MarketOberservation {
+public class MarketPriceObservation {
     private final YearMonth period;
     private final BigDecimal observedPrice;
     private final PriceUnit priceUnit;
     private final DataSource source;
 
-    public MarketOberservation(YearMonth period, BigDecimal observedPrice, PriceUnit priceUnit, DataSource source) {
+    public MarketPriceObservation(YearMonth period, BigDecimal observedPrice, PriceUnit priceUnit, DataSource source) {
         this.period = Objects.requireNonNull(period, "period is required");
         this.observedPrice = Objects.requireNonNull(observedPrice, "observedPrice is required");
         this.priceUnit = Objects.requireNonNull(priceUnit, "priceUnit is required");
