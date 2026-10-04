@@ -11,9 +11,10 @@
 
 <body>
 
-
-
-   <div class="flex flex-col h-screen w-50 border-border bg-bg">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="flex h-screen w-2/3 bg-bg-dark"> 
+  
+   <div class="flex flex-col h-screen w-64 bg-bg">
 
   <nav class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
     <a href="#" class="flex items-center px-3 py-2 mt-1 text-md font-medium text-muted hover:bg-border hover:text-highlight rounded-md">
@@ -30,12 +31,65 @@
     </a>
   </nav>
 
+</div>
 
-  
+<div class="flex-1 grid 2 gap-4 p-4 ">
+  <div class="p-4 rounded-lg bg-bg text-text shadow row-span-2">
+  <canvas id="marketChart"></canvas>
+</div>
 </div>
 
 
 
 
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+
+
+const data = {
+  labels: [10,20,30,40,50,60,70],
+
+  datasets: [
+    {
+      label: 'Demand',
+      data: [52, 47, 42, 37, 32, 27, 22],
+      fill: false,
+      borderColor: 'rgb(37, 99, 235)',   // blue
+      backgroundColor: 'rgb(37, 99, 235)',
+      tension: 0.1
+    },
+    {
+      label: 'Supply',
+      data: [16, 20, 24, 28, 32, 36, 40],
+      fill: false,
+      borderColor: 'rgb(234, 88, 12)',   // orange
+      backgroundColor: 'rgb(234, 88, 12)',
+      tension: 0.1
+    }
+  ]
+};
+const config = {
+  type: 'line',
+  data: data
+};
+
+const marketChart = new Chart(
+  document.getElementById('marketChart'),
+  config
+);
+
+</script>
 </body>
 </html>
