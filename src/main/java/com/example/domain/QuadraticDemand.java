@@ -3,7 +3,6 @@ package com.example.domain;
 public class QuadraticDemand implements DemandModel{
 
     // Q_d = aP^2 - bP - c
-
     private double curvatureA;
     private double curvatureB;
     private double baseDemand;
