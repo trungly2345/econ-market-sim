@@ -74,6 +74,48 @@ public class EiaClient {
   
   }
 
+  public List<EiaObservationDTO> fetchQuantityData(String route) throws IOException, InterruptedException {
+
+    String uri = baseUrl + "/" + route + "&api_key=" + apiKey;
+
+    HttpRequest request = HttpRequest.newBuilder().header("Accept", "application/json").uri(URI.create(uri)).GET() 
+
+        .build();
+
+    ObjectMapper mapper = new ObjectMapper();    
+
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+    List<EiaObservationDTO> eiaData = new ArrayList<>();
+      JsonNode root = mapper.readTree(response.body());
+      JsonNode dataNode = root.path("response").path("data");
+
+
+
+      for (JsonNode observation: dataNode){
+      String period = observation.path("period").asText();
+      String duoarea = observation.path("duoarea").asText();
+      String product_name = observation.path("product-name").asText();
+      BigDecimal value = new BigDecimal(observation.path("value").asText());
+
+      EiaObservationDTO dto = new EiaObservationDTO();
+      dto.setPeriod(period);
+      dto.setDuoarea(duoarea);
+      dto.setProductName(product_name);
+      dto.setValue(value);
+      eiaData.add(dto);
+      }
+
+    System.out.println("Status Code " + response.statusCode());
+   
+    // System.out.println(response.body());
+    
+
+  
+    return eiaData;
+  
+  }
+
 
   
 

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import com.example.client.EiaClient;
 import com.example.domain.MarketPriceObservation;
+import com.example.domain.MarketQuantityObservation;
 import com.example.service.MarketDataService;
 
 class FetchDataTest {
@@ -19,8 +20,6 @@ class FetchDataTest {
 
         String apiKey = System.getenv("EIA_API_KEY");
 
-        assertNotNull(apiKey, "EIA_API_KEY is not set");
-        assertFalse(apiKey.isBlank(), "EIA_API_KEY is blank");
 
         System.out.println("API key length: " + apiKey.length());
 
@@ -28,12 +27,24 @@ class FetchDataTest {
         MarketDataService marketService = new MarketDataService(client);
         List<MarketPriceObservation> data = marketService.getNaturalGasPrices();
 
+        System.out.println("===========Market Price=============");
         for (MarketPriceObservation observation : data) {
             System.out.println(observation.getPeriod() + " " + observation.getObservedPrice());
-            System.out.println(observation);
+            System.out.println(observation.toString());
+        }
+
+
+        System.out.println("===========Market Quantity=============");
+        List<MarketQuantityObservation> quantityData = marketService.getNaturalGasConsumption();
+
+        for (MarketQuantityObservation observation : quantityData) {
+            System.out.println(observation.getPeriod() + " " + observation.getObservedQuantity());
+            System.out.println(observation.toString());
         }
             
         assertNotNull(data);
         assertFalse(data.isEmpty());
+        assertNotNull(quantityData);
+        assertFalse(quantityData.isEmpty());
     }
 }

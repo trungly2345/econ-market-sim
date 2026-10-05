@@ -41,6 +41,13 @@ public class MarketPriceObservation {
         return source;
     }
 
+    @Override
+    public String toString() {
+        return "MarketPriceObservation [period=" + period + ", observedPrice=" + observedPrice + ", priceUnit=" + priceUnit
+                + ", source=" + source + "]";
+    }
+
+    
 
 }
 

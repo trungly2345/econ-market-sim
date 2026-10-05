@@ -9,8 +9,6 @@ public class EconSimulatorApp {
     public static void main(String[] args) {
         SpringApplication.run(EconSimulatorApp.class, args);
 
-
-
         
     }
 
