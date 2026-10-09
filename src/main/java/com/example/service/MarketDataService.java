@@ -30,7 +30,7 @@ public class MarketDataService {
   }
 
   private MarketPriceObservation toMarketPriceObservation(EiaObservationDTO dto) {
-    return new MarketPriceObservation(YearMonth.parse(dto.getPeriod()), dto.getValue(), PriceUnit.USD_PER_MCF,
+    return new MarketPriceObservation(YearMonth.parse(dto.getPeriod()), dto.getValue(), PriceUnit.MILLION_CUBIC_FEET,
         DataSource.EIA);
   }
 
