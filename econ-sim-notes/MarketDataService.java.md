@@ -13,6 +13,7 @@ containing normalized price/quantity/date/unit information.
 
 DOES:
 - ask EiaClient for data
+- persists the data to the repository for DB to retrieve
 - validate/filter data
 - convert EiaObservationDto → MarketObservation
 - combine/align price and quantity observations

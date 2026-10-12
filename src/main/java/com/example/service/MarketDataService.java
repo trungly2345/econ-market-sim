@@ -4,21 +4,39 @@ import java.io.IOException;
 import java.time.YearMonth;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.example.Enums.DataSource;
 import com.example.Enums.PriceUnit;
 import com.example.client.EiaClient;
 import com.example.domain.MarketPriceObservation;
 import com.example.domain.MarketQuantityObservation;
 import com.example.dto.EiaObservationDTO;
-import org.springframework.stereotype.Service;
+import com.example.repository.MarketPriceRepository;
 
+
+/**
+ * <p> 
+ * Performs data fetching from an client response 
+ * using EIA API
+ * </p> 
+ * 
+ */
 @Service
 public class MarketDataService {
 
   private final EiaClient eiaClient;
+  private final MarketPriceRepository priceRepository;
+  /***
+   * Constructor for MarketDataService, 
+   * Takes a dependency from eiaClient using Constructor Dependency Injection
+   * @param
+   * 
+   */
+  public MarketDataService(EiaClient eiaClient, MarketPriceRepository priceRepository) {
 
-  public MarketDataService(EiaClient eiaClient) {
     this.eiaClient = eiaClient;
+    this.priceRepository = priceRepository;
   }
 
   public List<MarketPriceObservation> getNaturalGasPrices() throws IOException, InterruptedException {
@@ -30,7 +48,7 @@ public class MarketDataService {
   }
 
   private MarketPriceObservation toMarketPriceObservation(EiaObservationDTO dto) {
-    return new MarketPriceObservation(YearMonth.parse(dto.getPeriod()), dto.getValue(), PriceUnit.MILLION_CUBIC_FEET,
+    return new MarketPriceObservation(YearMonth.parse(dto.getPeriod()), dto.getValue(), PriceUnit.USD_PER_MCF,
         DataSource.EIA);
   }
 

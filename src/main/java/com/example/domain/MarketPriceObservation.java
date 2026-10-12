@@ -1,19 +1,40 @@
 package com.example.domain;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.Year;
 import java.time.YearMonth;
 import java.util.Objects;
-
+import com.example.utility.YearMonthConverter;
 import com.example.Enums.DataSource;
 import com.example.Enums.PriceUnit;
+import jakarta.persistence.*;
 
 
-
+@Entity
+@Table(name="market_price_observations")
 public class MarketPriceObservation {
-    private final YearMonth period;
-    private final BigDecimal observedPrice;
-    private final PriceUnit priceUnit;
-    private final DataSource source;
+
+
+
+    protected MarketPriceObservation(){}
+
+    @Column(name ="period", nullable = false, length = 7)
+    private YearMonth period;
+
+    @Column(name ="observed_price",nullable = false)
+    private BigDecimal observedPrice;
+
+    @Column(name ="price_unit", nullable = false)
+    private PriceUnit priceUnit;
+
+    @Column(name ="source", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private DataSource source;
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
 
     public MarketPriceObservation(YearMonth period, BigDecimal observedPrice, PriceUnit priceUnit, DataSource source) {
         this.period = Objects.requireNonNull(period, "period is required");
