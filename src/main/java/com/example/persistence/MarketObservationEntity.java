@@ -92,6 +92,8 @@ public class MarketObservationEntity {
     @Column(name = "quantity_unit")
     @Enumerated(EnumType.STRING)
     private QuantityUnit quantityUnit;
+
+
     
    
 }
