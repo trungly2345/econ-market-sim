@@ -1,7 +1,7 @@
 package com.example.repository;
 
-import com.example.domain.MarketPriceObservation;
+import com.example.persistence.MarketPriceObservationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MarketPriceRepository extends JpaRepository<MarketPriceObservation, Long> {
+public interface MarketPriceRepository extends JpaRepository<MarketPriceObservationEntity, Long> {
 }

@@ -1,11 +1,9 @@
-package com.example.domain;
+package com.example.persistence;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.Year;
 import java.time.YearMonth;
 import java.util.Objects;
-import com.example.utility.YearMonthConverter;
+
 import com.example.Enums.DataSource;
 import com.example.Enums.PriceUnit;
 import jakarta.persistence.*;
@@ -13,11 +11,11 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="market_price_observations")
-public class MarketPriceObservation {
+public class MarketPriceObservationEntity {
 
 
 
-    protected MarketPriceObservation(){}
+    protected MarketPriceObservationEntity(){}
 
     @Column(name ="period", nullable = false, length = 7)
     private YearMonth period;
@@ -36,7 +34,7 @@ public class MarketPriceObservation {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    public MarketPriceObservation(YearMonth period, BigDecimal observedPrice, PriceUnit priceUnit, DataSource source) {
+    public MarketPriceObservationEntity(YearMonth period, BigDecimal observedPrice, PriceUnit priceUnit, DataSource source) {
         this.period = Objects.requireNonNull(period, "period is required");
         this.observedPrice = Objects.requireNonNull(observedPrice, "observedPrice is required");
         this.priceUnit = Objects.requireNonNull(priceUnit, "priceUnit is required");

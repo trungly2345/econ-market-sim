@@ -1,21 +1,43 @@
-package com.example.domain;
+package com.example.persistence;
 
 import java.math.BigDecimal;
 import java.time.YearMonth;
 import java.util.Objects;
 
 import com.example.Enums.DataSource;
+import jakarta.persistence.*;
 
 /**
  * MarketQuantityObservation
  */
-public class MarketQuantityObservation {
 
-    private final YearMonth period;
-    private final BigDecimal observedQuantity;
-    private final DataSource source;
+@Entity
+@Table(name = "market_quantity_observations")
+public class MarketQuantityObservationEntity {
 
-    public MarketQuantityObservation(YearMonth period, BigDecimal observedQuantity, DataSource source) {
+
+    protected MarketQuantityObservationEntity(){
+
+    }
+
+    @Column(name = "period", nullable = false, length = 7)
+    private YearMonth period;
+
+    @Column(name = "observed_quantity", nullable = false)
+    private BigDecimal observedQuantity;
+
+
+
+    @Column(name ="source", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private DataSource source;
+
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
+
+    public MarketQuantityObservationEntity(YearMonth period, BigDecimal observedQuantity, DataSource source) {
         this.period = Objects.requireNonNull(period, "period is required");
         this.observedQuantity = Objects.requireNonNull(observedQuantity, "observedQuantity is required");
         this.source = Objects.requireNonNull(source, "source is required");
