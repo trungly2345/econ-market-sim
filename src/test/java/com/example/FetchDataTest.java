@@ -9,8 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
+import java.time.YearMonth;
 
 import com.example.persistence.MarketPriceObservationEntity;
+import com.example.repository.MarketQuantityRepository;
 import org.junit.jupiter.api.Test;
 
 import com.example.client.EiaClient;
@@ -24,6 +26,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 class FetchDataTest {
     @Autowired
     MarketPriceRepository priceRepository;
+
+    @Autowired
+    MarketQuantityRepository quantityRepository;
 
     @Autowired
     MarketDataService service;
@@ -64,10 +69,16 @@ class FetchDataTest {
 
     @Test
     void savePriceObservations() throws Exception{
-       var observations = service.savePriceObervations();
+       var observations = service.savePriceObservations(YearMonth.parse("2026-03"));
 
        assertFalse(observations.isEmpty());
 
+    }
+
+    @Test
+    void saveQuantityObservations() throws Exception {
+       var observations = service.saveQuantityObservations();
+       assertFalse(observations.isEmpty());
     }
 
 }

@@ -51,6 +51,9 @@ public class MarketPriceObservationEntity {
         return observedPrice;
     }
 
+    public void setObservedPrice(BigDecimal observedPrice){ this.observedPrice = observedPrice;}
+
+
     public PriceUnit getPriceUnit() {
         return priceUnit;
     }

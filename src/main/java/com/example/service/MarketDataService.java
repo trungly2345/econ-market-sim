@@ -3,7 +3,9 @@ package com.example.service;
 import java.io.IOException;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Optional;
 
+import com.example.persistence.MarketObservationEntity;
 import com.example.repository.MarketQuantityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import com.example.persistence.MarketQuantityObservationEntity;
 import com.example.dto.EiaObservationDTO;
 import com.example.repository.MarketPriceRepository;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.swing.text.html.Option;
 
 /**
  * <p> 
@@ -30,7 +34,11 @@ public class MarketDataService {
   private final EiaClient eiaClient;
   @Autowired
   private MarketPriceRepository priceRepository;
-  private final MarketQuantityRepository quantityRepository;
+
+  @Autowired
+  private MarketQuantityRepository quantityRepository;
+
+  private MarketQuantityObservationEntity marketQuantity;
   /***
    * Constructor for MarketDataService, 
    * Takes a dependency from eiaClient using Constructor Dependency Injection
@@ -72,11 +80,44 @@ public class MarketDataService {
 
 
   @Transactional
-  public List<MarketPriceObservationEntity> savePriceObervations() throws IOException, InterruptedException {
+  public List<MarketPriceObservationEntity> savePriceObservations(YearMonth period) throws IOException, InterruptedException {
     var observations = getNaturalGasPrices();
-      return priceRepository.saveAll(observations);
+
+
+
+    for(var observation: observations) {
+      var existing = priceRepository.findByPeriod(period);
+      if (existing.isPresent()) {
+        var entity = existing.get();
+        entity.setObservedPrice(observation.getObservedPrice());
+        priceRepository.save(observation);
+      } else {
+        priceRepository.saveAll(observations);
+      }
+    }
+
+    return observations;
 
   }
 
+  @Transactional
+  public List<MarketQuantityObservationEntity> saveQuantityObservations() throws IOException, InterruptedException {
+    var observations = getNaturalGasConsumption();
+
+    // if the record is a duplicate, delete them
+
+    for (var observation : observations) {
+      var existing = quantityRepository.findByPeriod(observation.getPeriod());
+      if (existing.isPresent()) {
+       var entity = existing.get();
+       entity.setObservedQuantity(observation.getObservedQuantity());
+       quantityRepository.save(entity);
+      } else {
+        quantityRepository.save(observation);
+      }
+    }
+
+    return observations;
+  }
 
 }

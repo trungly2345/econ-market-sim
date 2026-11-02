@@ -1,5 +1,7 @@
 #!/bin/bash
 
+szshrc
+
 set -e
 
 set -o allexport

@@ -1,7 +1,15 @@
 package com.example.repository;
 
-import com.example.persistence.MarketPriceObservationEntity;
+import com.example.persistence.MarketQuantityObservationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MarketQuantityRepository extends JpaRepository<MarketPriceObservationEntity, Long> {
+
+import java.time.YearMonth;
+import java.util.Optional;
+
+public interface MarketQuantityRepository extends JpaRepository<MarketQuantityObservationEntity, Long> {
+
+
+    Optional<MarketQuantityObservationEntity> findByPeriod(YearMonth period);
 }
+

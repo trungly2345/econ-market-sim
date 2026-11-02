@@ -51,9 +51,18 @@ public class MarketQuantityObservationEntity {
         return observedQuantity;
     }
 
+    public void setObservedQuantity(BigDecimal observedEntity){
+        this.observedQuantity = observedEntity;
+    }
+
     public DataSource getSource() {
         return source;
     }
+
+
+
+
+    public Long getId() { return id; }
 
     @Override
     public String toString() {
